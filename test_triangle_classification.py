@@ -64,7 +64,7 @@ def test_classify_right_triangle():
 def test_classify_right_triangle2():
     assert classify_triangle(3, 5, 4) == [TriangleType.RIGHTTRIANGLE]
 
-def test_classify_right_triangle2():
+def test_classify_right_triangle3():
     assert classify_triangle(5, 3, 4) == [TriangleType.RIGHTTRIANGLE]
 
 def test_classify_right_isosceles_triangle():
