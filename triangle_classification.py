@@ -1,10 +1,13 @@
 ACCURACY = 10
 
+
 def classify_triangle(a, b, c):
     """
-    This function given a triangle three sides lengths, it classifies the triangle to be either scalene, isosceles, equilateral, or right triangle
+    This function given a triangle three sides lengths, it classifies the triangle to be either
+    scalene, isosceles, equilateral, or right triangle
     """
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(c, (int, float)) :
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) \
+            or not isinstance(c, (int, float)):
         raise NotATriangle("Invalid parameters. All sides must be numbers")
 
     if a >= b + c or b >= a + c or c >= a + b:
@@ -14,34 +17,44 @@ def classify_triangle(a, b, c):
         return [TriangleType.EQUILATERAL]
 
     result = []
-    if a == b or b == c:
+    if a == b or b == c or a == c:
         result.append(TriangleType.ISOSCELES)
 
     # Check for right triangle
-    a2 = a ** 2
-    b2 = b ** 2
-    c2 = c ** 2
-    if almost_equals(a2, b2 + c2) or almost_equals(b2, a2 + c2) or almost_equals(c2, a2 + b2):
+    a_square = a ** 2
+    b_square = b ** 2
+    c_square = c ** 2
+    if almost_equals(a_square, b_square + c_square) or almost_equals(b_square, a_square + c_square)\
+            or almost_equals(c_square, a_square + b_square):
         result.append(TriangleType.RIGHTTRIANGLE)
 
     # Any other case, it is scalene
     if len(result) == 0:
         return [TriangleType.SCALENE]
-    else:
-        return result
+
+    return result
 
 
-def almost_equals(x, y):
-    return round(x, ACCURACY) == round(y, ACCURACY)
+def almost_equals(num1, num2):
+    """
+    check whither both parameters as numbers are equals with precision of ACCURACY
+    :param num1: first number
+    :param num2: second number
+    """
+    return round(num1, ACCURACY) == round(num2, ACCURACY)
 
 
 class NotATriangle(Exception):
-    pass
+    """
+    This exception if a triangle sides lengths don't form a valid triangle
+    """
 
 
-class TriangleType(object):
+class TriangleType:
+    """
+    An enum class for all different types of triangles
+    """
     SCALENE = 'Scalene'
     ISOSCELES = 'Isosceles'
     EQUILATERAL = 'Equilateral'
     RIGHTTRIANGLE = 'RightTriangle'
-
